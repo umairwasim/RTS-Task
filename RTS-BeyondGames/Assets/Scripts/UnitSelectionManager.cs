@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class UnitSelectionManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static UnitSelectionManager Instance { get; private set; }
+
+    public List<Unit> availableUnits = new();
+    public List<Unit> selectedUnits = new();
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SelectUnit(Unit unit)
     {
-        
+        if (selectedUnits.Contains(unit))
+            return;
+
+        selectedUnits.Add(unit);
+    }
+
+    public void DeselectUnit(Unit unit)
+    {
+        selectedUnits.Remove(unit);
+    }
+
+    public void DeselectAll()
+    {
+        selectedUnits.Clear();
     }
 }
