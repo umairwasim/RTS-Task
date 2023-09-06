@@ -19,16 +19,23 @@ public class UnitSelectionManager : MonoBehaviour
         if (selectedUnits.Contains(unit))
             return;
 
+        unit.OnSelected();
         selectedUnits.Add(unit);
     }
 
     public void DeselectUnit(Unit unit)
     {
+        unit.OnDeselected();
         selectedUnits.Remove(unit);
     }
 
     public void DeselectAll()
     {
+        foreach (var unit in selectedUnits)
+        {
+            unit.OnDeselected();
+        }
+
         selectedUnits.Clear();
     }
 }
