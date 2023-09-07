@@ -17,7 +17,8 @@ public class Unit : MonoBehaviour
 
     void Init()
     {
-        UnitSelectionManager.Instance.SelectUnit(this);
+        //UnitSelectionManager.Instance.SelectUnit(this);
+        OnDeselected();
     }
 
     public void OnSelected()
