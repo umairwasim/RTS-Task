@@ -30,8 +30,8 @@ public class Unit : MonoBehaviour
         selectionSprite.gameObject.SetActive(false);
     }
 
-    private void Update()
+    public void SetDestinationPoint(Vector3 destination)
     {
-        agent.SetDestination(MouseInput.GetMouseWorldPosition());
+        agent.SetDestination(destination);
     }
 }
