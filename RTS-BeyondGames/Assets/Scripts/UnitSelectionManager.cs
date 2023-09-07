@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +12,8 @@ public class UnitSelectionManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    public bool IsSelectedUnit(Unit unit) => selectedUnits.Contains(unit);
 
     public void SelectUnit(Unit unit)
     {
@@ -64,6 +65,7 @@ public class UnitSelectionManager : MonoBehaviour
             foreach (var unit in selectedUnits)
             {
                 unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
+                unit.StartAnimation();
             }
 
         }
