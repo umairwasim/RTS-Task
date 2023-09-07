@@ -7,7 +7,7 @@ public class UnitSelectionManager : MonoBehaviour
     public static UnitSelectionManager Instance { get; private set; }
 
     public List<Unit> availableUnits = new();
-    public List<Unit> selectedUnits = new();
+    public HashSet<Unit> selectedUnits = new();
 
     private void Awake()
     {
