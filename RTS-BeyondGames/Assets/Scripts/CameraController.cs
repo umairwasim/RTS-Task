@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private const float MIN_Y = -3f;
+    private const int MAY_Y = 17;
+
     [SerializeField] private float moveSpeed = 50f;
 
     private float cameraY;
@@ -53,7 +56,7 @@ public class CameraController : MonoBehaviour
     {
         float zoomSpeed = 1f;
         cameraY += -Input.mouseScrollDelta.y * zoomSpeed;
-        cameraY = Mathf.Clamp(cameraY, -3f, 17);
+        cameraY = Mathf.Clamp(cameraY, MIN_Y, MAY_Y);
         transform.position = new Vector3(transform.position.x, cameraY, transform.position.z);
     }
 
