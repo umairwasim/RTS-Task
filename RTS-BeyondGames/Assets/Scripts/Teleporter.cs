@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class Teleporter : MonoBehaviour
 {
     private const string PLAYER = "Player";
 
     [SerializeField] private BoxCollider boxCollider;
-    [SerializeField] private Transform teleporterPointTransform;
+    public Transform teleporterPointTransform;
 
-    private bool isPlayerEntered = false;
+    public bool isPlayerEntered = false;
 
     public bool IsPlayerEntered() => isPlayerEntered = true;
 
@@ -26,13 +27,15 @@ public class Teleporter : MonoBehaviour
             isPlayerEntered = true;
             boxCollider.enabled = false;
 
+            //Teleport player to the other teleporter's teleporter point
+            TeleportManager.Instance.Teleport();
+
             //stop the countdown
 
             //Play particles
 
             //Play sound
 
-            //Teleport player to the other teleporter's teleporter point
         }
     }
 }
