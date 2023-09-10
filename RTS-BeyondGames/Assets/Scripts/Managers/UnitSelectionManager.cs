@@ -52,27 +52,13 @@ public class UnitSelectionManager : MonoBehaviour
     private void Update()
     {
         //Left mouse button clicked
-        UnitSelect();
+        Select();
 
         //right mouse button clicked
-        UnitMove();
+        Move();
     }
-
-    private void UnitMove()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            //set the destination for each selected unit to the mouse world position, om right click
-            foreach (var unit in selectedUnits)
-            {
-                unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
-                //unit.StartAnimation();
-            }
-
-        }
-    }
-
-    private void UnitSelect()
+   
+    private void Select()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -87,6 +73,20 @@ public class UnitSelectionManager : MonoBehaviour
                     SelectUnit(unit);
                 }
             }
+        }
+    }
+
+    private void Move()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            //set the destination for each selected unit to the mouse world position, om right click
+            foreach (var unit in selectedUnits)
+            {
+                unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
+                //unit.StartAnimation();
+            }
+
         }
     }
 
