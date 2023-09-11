@@ -6,7 +6,7 @@ public class UnitSelectionManager : MonoBehaviour
     public static UnitSelectionManager Instance { get; private set; }
 
     public List<Unit> availableUnits = new();
-    public HashSet<Unit> selectedUnits = new();
+    public List<Unit> selectedUnits = new();
 
     private Unit currentUnit;
 
@@ -57,7 +57,7 @@ public class UnitSelectionManager : MonoBehaviour
         //right mouse button clicked
         Move();
     }
-   
+
     private void Select()
     {
         if (Input.GetMouseButtonDown(0))
@@ -84,7 +84,7 @@ public class UnitSelectionManager : MonoBehaviour
             foreach (var unit in selectedUnits)
             {
                 unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
-                //unit.StartAnimation();
+                unit.AnimateMovement();
             }
 
         }
