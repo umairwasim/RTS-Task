@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Clips")]
     public AudioClip buttonClickSound;
-    public AudioClip checkpointTickSound;
+    public AudioClip teleporterSound;
 
     private void Awake()
     {

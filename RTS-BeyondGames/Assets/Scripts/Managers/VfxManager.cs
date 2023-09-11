@@ -4,9 +4,7 @@ public class VfxManager : MonoBehaviour
 {
     public static VfxManager Instance;
 
-    public GameObject damageVfx;
-    public GameObject levelWonVfx;
-    public GameObject levelFailedVfx;
+    public GameObject teleportVfx;
 
     private void Awake()
     {
