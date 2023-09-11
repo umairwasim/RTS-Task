@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent(typeof(NavMesh))]
 public class Unit : MonoBehaviour
@@ -11,13 +10,13 @@ public class Unit : MonoBehaviour
     [SerializeField] private SpriteRenderer selectionSprite;
 
     private NavMeshAgent agent;
-    private Animator animator;
+    private ThirdPersonCharacter character;
 
     private void Awake()
     {
         Init();
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        character = GetComponent<ThirdPersonCharacter>();
     }
 
     void Init()
@@ -41,12 +40,11 @@ public class Unit : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-    public void StartAnimation()
+    public void AnimateMovement()
     {
-        Debug.Log("agent.velocity.magnitude " + agent.velocity.magnitude);
-        if (!agent.isStopped)
-            animator.SetBool(IS_WALKING, true);
+        if (agent.remainingDistance > agent.stoppingDistance)
+            character.Move(agent.desiredVelocity, false, false);
         else
-            animator.SetBool(IS_WALKING, false);
+            character.Move(Vector3.zero, false, false);
     }
 }
