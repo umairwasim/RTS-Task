@@ -4,8 +4,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(BoxCollider))]
 public class Teleporter : MonoBehaviour
 {
-    private const string PLAYER = "Player";
-
     [SerializeField] private BoxCollider boxCollider;
     public Transform teleporterPointTransform;
 
@@ -13,11 +11,6 @@ public class Teleporter : MonoBehaviour
 
     public bool IsOtherTeleporterExists() => otherTeleporter != null;
 
-    private void Start()
-    {
-        //for testing only 
-        //TeleportManager.Instance.AddTeleporter(this);
-    }
 
     public void SetOtherTeleporter(Teleporter teleporter)
     {
@@ -27,28 +20,26 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // if (other.CompareTag(PLAYER))
+        if (other.TryGetComponent(out NavMeshAgent agent))
         {
-            if (other.TryGetComponent(out NavMeshAgent agent))
+            //Teleport player to the other teleporter's point
+            if (IsOtherTeleporterExists())
             {
-                //Teleport player to the other teleporter's point
-                if (IsOtherTeleporterExists())
-                {
-                    agent.Warp(otherTeleporter.teleporterPointTransform.position);
-                }
+                Vector3 otherTeleporterPosition = otherTeleporter.teleporterPointTransform.position;
+                agent.Warp(otherTeleporterPosition);
+                VfxManager.Instance.DisplayVfx(VfxManager.Instance.teleportVfx, otherTeleporterPosition);
             }
-
-            //disable box collider
-            boxCollider.enabled = false;
-
-            //TeleportManager.Instance.Teleport();
-
-            //stop the countdown
-
-            //Play particles
-
-            //Play sound
-
         }
+
+        //disable box collider
+        boxCollider.enabled = false;
+
+        VfxManager.Instance.DisplayVfx(VfxManager.Instance.teleportVfx, transform.position);
+
+        //Play particles
+
+        //Play sound
+
+
     }
 }
