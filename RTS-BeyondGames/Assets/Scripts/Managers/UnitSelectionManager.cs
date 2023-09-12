@@ -75,13 +75,13 @@ public class UnitSelectionManager : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit raycastHit))
             {
                 //check if it can spawn Teleporter, then spawn it, twice
-                if (TeleportManager.Instance.CanSpawnTeleporter())
+                if (TeleportManager.Instance.GetCanSpawnTeleporter())
                 {
                     //Prevemt the case when clicking on Unit to spawn Teleport object
                     if (raycastHit.transform.TryGetComponent(out Unit unit))
                         return;
 
-                        TeleportManager.Instance.CreateTeleporter(raycastHit.point);
+                    TeleportManager.Instance.CreateTeleporter(raycastHit.point);
                 }
                 else // otherwise select the Unit for navigation 
                 {
@@ -103,7 +103,7 @@ public class UnitSelectionManager : MonoBehaviour
             foreach (var unit in selectedUnits)
             {
                 unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
-               // unit.AnimateMovement();
+                // unit.AnimateMovement();
             }
 
         }
