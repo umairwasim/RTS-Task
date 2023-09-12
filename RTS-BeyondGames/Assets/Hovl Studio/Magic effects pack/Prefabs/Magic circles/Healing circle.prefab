@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2195905884542783037}
   - component: {fileID: 1649048597955103039}
   - component: {fileID: 44284836944319936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.36470592, g: 1, b: 0.38320535, a: 1}
+      maxColor: {r: 1, g: 0.64048016, b: 0.06289297, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4906,7 +4906,7 @@ GameObject:
   - component: {fileID: 7457615570839298223}
   - component: {fileID: 5510952348061193321}
   - component: {fileID: 4537244849594526554}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5118,7 +5118,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.33333337, g: 1, b: 0.3422383, a: 1}
+      maxColor: {r: 1, g: 0.64048016, b: 0.06289297, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9792,7 +9792,7 @@ GameObject:
   - component: {fileID: 3938747928277076420}
   - component: {fileID: 524572398670386221}
   - component: {fileID: 7580349444792151480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Healing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10004,7 +10004,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 1, b: 0.12923098, a: 1}
+      maxColor: {r: 1, g: 0.64048016, b: 0.06289297, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14688,7 +14688,7 @@ GameObject:
   - component: {fileID: 7834758006639453083}
   - component: {fileID: 7834758006639453082}
   - component: {fileID: 7834758006639453081}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14900,7 +14900,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.19339621, g: 1, b: 0.19339621, a: 1}
+      maxColor: {r: 1, g: 0.64048016, b: 0.06289297, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19683,7 +19683,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 6.162976e-33, y: 0.88671875, z: 0.1640625, w: 9.999998}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -19699,7 +19699,7 @@ GameObject:
   - component: {fileID: 8037160467862551414}
   - component: {fileID: 6211125795773073634}
   - component: {fileID: 959509697232157438}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Healing circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19715,7 +19715,7 @@ Transform:
   m_GameObject: {fileID: 7986504087968017091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7457615570839298223}
@@ -19915,7 +19915,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.33333337, g: 1, b: 0.4454416, a: 1}
+      maxColor: {r: 1, g: 0.64048016, b: 0.06289297, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
