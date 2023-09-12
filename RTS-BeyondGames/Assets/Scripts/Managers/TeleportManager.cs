@@ -36,7 +36,7 @@ public class TeleportManager : MonoBehaviour
     public void CreateTeleporter(Vector3 position)
     {
         // Instantiate the teleporter.
-        GameObject teleporterGameObject = Instantiate(teleporterPrefab, position, Quaternion.identity);
+        GameObject teleporterGameObject = Instantiate(teleporterPrefab, position, Quaternion.identity, transform);
 
         if (teleporterGameObject.TryGetComponent(out Teleporter newTeleporter))
             teleportersList.Add(newTeleporter);
@@ -47,6 +47,7 @@ public class TeleportManager : MonoBehaviour
             SetTeleporterReferences();
             //Start the Cool down timer
             StartCoroutine(StartCooldowRoutine());
+            UIManager.Instance.ShowCoolDownText();
         }
     }
 
@@ -81,13 +82,14 @@ public class TeleportManager : MonoBehaviour
 
         // Clear the list of teleporters for next spawning.
         ClearTeleportersList();
+        UIManager.Instance.HideCoolDownText();
     }
 
 
     private void ClearTeleportersList()
     {
-        foreach (var teleporter in teleportersList)
-            Destroy(teleporter);
+        foreach (var teleporter in transform.GetComponentsInChildren<Teleporter>())
+            Destroy(teleporter.gameObject);
 
         teleportersList.Clear();
     }
