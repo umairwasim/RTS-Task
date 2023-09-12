@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Teleporter : MonoBehaviour
@@ -10,25 +9,39 @@ public class Teleporter : MonoBehaviour
     [SerializeField] private BoxCollider boxCollider;
     public Transform teleporterPointTransform;
 
-    public bool isPlayerEntered = false;
+    private Teleporter otherTeleporter;
 
-    public bool IsPlayerEntered() => isPlayerEntered = true;
+    public bool IsOtherTeleporterExists() => otherTeleporter != null;
 
     private void Start()
     {
-        TeleportManager.Instance.AddCube(this);
+        //for testing only 
+        //TeleportManager.Instance.AddTeleporter(this);
+    }
+
+    public void SetOtherTeleporter(Teleporter teleporter)
+    {
+        otherTeleporter = teleporter;
+        Debug.Log("Other Teleporter Name " + otherTeleporter.name);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(PLAYER))
+        // if (other.CompareTag(PLAYER))
         {
-            //set the bool to true
-            isPlayerEntered = true;
+            if (other.TryGetComponent(out NavMeshAgent agent))
+            {
+                //Teleport player to the other teleporter's point
+                if (IsOtherTeleporterExists())
+                {
+                    agent.Warp(otherTeleporter.teleporterPointTransform.position);
+                }
+            }
+
+            //disable box collider
             boxCollider.enabled = false;
 
-            //Teleport player to the other teleporter's teleporter point
-            TeleportManager.Instance.Teleport();
+            //TeleportManager.Instance.Teleport();
 
             //stop the countdown
 
