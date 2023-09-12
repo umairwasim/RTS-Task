@@ -10,11 +10,19 @@ public class Unit : MonoBehaviour
     private NavMeshAgent agent;
     private ThirdPersonCharacter character;
 
+    private bool canAnimate = false;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         character = GetComponent<ThirdPersonCharacter>();
         Init();
+    }
+
+    private void Update()
+    {
+        if (canAnimate)
+            AnimateMovement();
     }
 
     void Init()
@@ -47,9 +55,10 @@ public class Unit : MonoBehaviour
     public void SetDestinationPoint(Vector3 destination)
     {
         agent.SetDestination(destination);
+        canAnimate = true;
     }
 
-    public void AnimateMovement()
+    private void AnimateMovement()
     {
         if (agent.remainingDistance > agent.stoppingDistance)
             character.Move(agent.desiredVelocity, false, false);
