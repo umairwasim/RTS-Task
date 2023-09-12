@@ -3,16 +3,17 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private const float MIN_Y = -3f;
-    private const int MAY_Y = 17;
+    private const int MAX_Y = 17;
 
     [SerializeField] private float moveSpeed = 50f;
-
+    [SerializeField] private float zoomSpeed = 1f;
+    [SerializeField] private KeyCode UP = KeyCode.W;
+    [SerializeField] private KeyCode DOWN = KeyCode.S;
+    [SerializeField] private KeyCode LEFT = KeyCode.A;
+    [SerializeField] private KeyCode RIGHT = KeyCode.D;
     private float cameraY;
 
-    private void Awake()
-    {
-        cameraY = transform.position.y;
-    }
+    private void Awake() => cameraY = transform.position.y;
 
     private void Update()
     {
@@ -25,38 +26,23 @@ public class CameraController : MonoBehaviour
         float moveX = 0f;
         float moveY = 0f;
 
-        if (Input.GetKey(KeyCode.W))
-        {
+        if (Input.GetKey(UP))
             moveY = +1f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
+        if (Input.GetKey(DOWN))
             moveY = -1f;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
+        if (Input.GetKey(LEFT))
             moveX = -1f;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
+        if (Input.GetKey(RIGHT))
             moveX = +1f;
-        }
 
         Vector3 moveDir = new Vector3(moveX, 0, moveY).normalized;
-
-        if (moveX != 0 || moveY != 0)
-        {
-            // Not idle
-        }
-
         transform.position += moveSpeed * Time.deltaTime * moveDir;
     }
- 
+
     private void Zoom()
     {
-        float zoomSpeed = 1f;
         cameraY += -Input.mouseScrollDelta.y * zoomSpeed;
-        cameraY = Mathf.Clamp(cameraY, MIN_Y, MAY_Y);
+        cameraY = Mathf.Clamp(cameraY, MIN_Y, MAX_Y);
         transform.position = new Vector3(transform.position.x, cameraY, transform.position.z);
     }
 
