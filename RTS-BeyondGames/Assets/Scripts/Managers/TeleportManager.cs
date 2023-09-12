@@ -20,15 +20,15 @@ public class TeleportManager : MonoBehaviour
 
     private readonly List<Teleporter> teleportersList = new();
 
-    public bool GetCanSpawnTeleporter() => teleportersList.Count < 2;
-
     private void Awake() => Instance = this;
+    public bool GetCanSpawnTeleporter() => teleportersList.Count < 2;
 
     public void AddTeleporter(Teleporter teleporter) => teleportersList.Add(teleporter);
 
     //set the selected agent
     public void SetAgent(NavMeshAgent newAgent) => agent = newAgent;
 
+    #region Generate and Link Teleporters
     public void GenerateTeleporter(Vector3 position)
     {
         // Instantiate the teleporter.
@@ -60,6 +60,7 @@ public class TeleportManager : MonoBehaviour
             teleporter2.SetOtherTeleporter(teleportersList[0]);
         }
     }
+    #endregion
 
     #region Cooldown and Clear
     private IEnumerator StartCooldowRoutine()
