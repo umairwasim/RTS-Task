@@ -11,13 +11,18 @@ public class UIManager : MonoBehaviour
     [Header("Gameplay UI")]
     public TMP_Text cooldownText;
     public Image cooldownImage;
-    
+
     private void Awake() => Instance = this;
 
     private void Start() => HideCoolDownText();
 
-    public void ShowCoolDownText() => cooldownText.alpha = 1;
+    public void ShowCoolDownText() => cooldownText.DOFade(1f, 0.5f);
 
-    public void HideCoolDownText() => cooldownText.alpha = 0;
+    public void HideCoolDownText() => cooldownText.DOFade(0f, 0.5f);
+
+    public void UpdateCooldownText(float cooldownDuration)
+    {
+        cooldownText.text = "Cooldown: " + cooldownDuration.ToString("0");
+    }
 
 }
