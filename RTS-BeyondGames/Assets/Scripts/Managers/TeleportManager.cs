@@ -29,7 +29,7 @@ public class TeleportManager : MonoBehaviour
     //set the selected agent
     public void SetAgent(NavMeshAgent newAgent) => agent = newAgent;
 
-    public void CreateTeleporter(Vector3 position)
+    public void GenerateTeleporter(Vector3 position)
     {
         // Instantiate the teleporter.
         Transform teleporterTransform = Instantiate(teleporterPrefab.transform, position, Quaternion.identity, transform);
@@ -41,14 +41,15 @@ public class TeleportManager : MonoBehaviour
         // Check if we have two teleporters, and if so, set their references.
         if (teleportersList.Count == 2)
         {
-            SetTeleporterReferences();
+            LinkTeleporters();
             //Start the Cool down timer
             StartCoroutine(StartCooldowRoutine());
             UIManager.Instance.ShowCoolDownText();
         }
     }
 
-    private void SetTeleporterReferences()
+    //Link Teleporters to one another
+    private void LinkTeleporters()
     {
         Teleporter teleporter1 = teleportersList[0].GetComponent<Teleporter>();
         Teleporter teleporter2 = teleportersList[1].GetComponent<Teleporter>();
@@ -60,6 +61,7 @@ public class TeleportManager : MonoBehaviour
         }
     }
 
+    #region Cooldown and Clear
     private IEnumerator StartCooldowRoutine()
     {
         isCoolingDown = true;
@@ -97,5 +99,5 @@ public class TeleportManager : MonoBehaviour
 
         teleportersList.Clear();
     }
-
+    #endregion
 }

@@ -10,8 +10,8 @@ public class CameraController : MonoBehaviour
     [Header("Speed"), SerializeField] private float moveSpeed = 50f;
     [SerializeField] private float zoomSpeed = 1f;
 
-    [Header("Zoom Y Values"), SerializeField] private float min_Y = 3f;
-    [SerializeField] private float max_Y = 10f;
+    [Header("Zoom Y Values"), SerializeField] private float minY = 3f;
+    [SerializeField] private float maxY = 10f;
 
     private float cameraY;
 
@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
     private void Zoom()
     {
         cameraY += -Input.mouseScrollDelta.y * zoomSpeed;
-        cameraY = Mathf.Clamp(cameraY, min_Y, max_Y);
+        cameraY = Mathf.Clamp(cameraY, minY, maxY);
         transform.position = new Vector3(transform.position.x, cameraY, transform.position.z);
     }
 
