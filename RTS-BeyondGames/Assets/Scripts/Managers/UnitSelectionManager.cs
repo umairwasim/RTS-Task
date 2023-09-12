@@ -107,7 +107,7 @@ public class UnitSelectionManager : MonoBehaviour
             foreach (var unit in selectedUnits)
             {
                 unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
-                unit.AnimateMovement();
+               // unit.AnimateMovement();
             }
 
         }
