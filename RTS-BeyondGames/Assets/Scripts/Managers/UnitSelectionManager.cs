@@ -77,11 +77,15 @@ public class UnitSelectionManager : MonoBehaviour
                 //check if it can spawn Teleporter, then spawn it, twice
                 if (TeleportManager.Instance.GetCanSpawnTeleporter())
                 {
-                    //Prevemt the case when clicking on Unit to spawn Teleport object
-                    if (raycastHit.transform.TryGetComponent(out Unit unit))
+                    //Prevemt the case when clicking on Unit r teleporter to spawn Teleport object
+                    if (raycastHit.transform.TryGetComponent(out Teleporter teleporter) ||
+                        raycastHit.transform.TryGetComponent(out Unit uniy))
                         return;
 
-                    TeleportManager.Instance.CreateTeleporter(raycastHit.point);
+                    TeleportManager.Instance.GenerateTeleporter(raycastHit.point);
+
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.buttonClickSound);
+
                 }
                 else // otherwise select the Unit for navigation 
                 {
@@ -89,6 +93,9 @@ public class UnitSelectionManager : MonoBehaviour
                     {
                         //select the unit on left click
                         SelectUnit(unit);
+
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.buttonClickSound);
+
                     }
                 }
             }
