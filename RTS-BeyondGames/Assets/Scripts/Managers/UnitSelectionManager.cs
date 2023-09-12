@@ -19,7 +19,15 @@ public class UnitSelectionManager : MonoBehaviour
 
     public Unit CurrentlySelectedUnit => currentUnit;
 
-    #region Select/Deselect Unit
+    #region Select/Deselect/Available Unit
+    public void AvailableUnit(Unit unit)
+    {
+        if (availableUnits.Contains(unit))
+            return;
+
+        availableUnits.Add(unit);
+    }
+
     public void SelectUnit(Unit unit)
     {
         if (selectedUnits.Contains(unit))
@@ -53,7 +61,6 @@ public class UnitSelectionManager : MonoBehaviour
     {
         //Left mouse button clicked
         Select();
-
         //right mouse button clicked
         Move();
     }
@@ -67,10 +74,22 @@ public class UnitSelectionManager : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit raycastHit))
             {
-                if (raycastHit.transform.TryGetComponent(out Unit unit))
+                //check if it can spawn Teleporter, then spawn it, twice
+                if (TeleportManager.Instance.CanSpawnTeleporter())
                 {
-                    //select the unit on left click
-                    SelectUnit(unit);
+                    //Prevemt the case when clicking on Unit to spawn Teleport object
+                    if (raycastHit.transform.TryGetComponent(out Unit unit))
+                        return;
+
+                        TeleportManager.Instance.CreateTeleporter(raycastHit.point);
+                }
+                else // otherwise select the Unit for navigation 
+                {
+                    if (raycastHit.transform.TryGetComponent(out Unit unit))
+                    {
+                        //select the unit on left click
+                        SelectUnit(unit);
+                    }
                 }
             }
         }
@@ -84,7 +103,7 @@ public class UnitSelectionManager : MonoBehaviour
             foreach (var unit in selectedUnits)
             {
                 unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
-                unit.AnimateMovement();
+               // unit.AnimateMovement();
             }
 
         }
