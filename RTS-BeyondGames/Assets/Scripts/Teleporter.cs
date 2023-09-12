@@ -11,12 +11,7 @@ public class Teleporter : MonoBehaviour
 
     public bool IsOtherTeleporterExists() => otherTeleporter != null;
 
-
-    public void SetOtherTeleporter(Teleporter teleporter)
-    {
-        otherTeleporter = teleporter;
-        Debug.Log("Other Teleporter Name " + otherTeleporter.name);
-    }
+    public void SetOtherTeleporter(Teleporter teleporter) => otherTeleporter = teleporter;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,16 +22,14 @@ public class Teleporter : MonoBehaviour
             {
                 Vector3 otherTeleporterPosition = otherTeleporter.teleporterPointTransform.position;
                 agent.Warp(otherTeleporterPosition);
+
+                SoundManager.Instance.PlaySound(SoundManager.Instance.teleporterSound);
                 VfxManager.Instance.DisplayVfx(VfxManager.Instance.teleportVfx, otherTeleporterPosition);
             }
         }
 
         //disable box collider
         boxCollider.enabled = false;
-
-        VfxManager.Instance.DisplayVfx(VfxManager.Instance.teleportVfx, transform.position);
-
-        //Play particles
 
         //Play sound
 
