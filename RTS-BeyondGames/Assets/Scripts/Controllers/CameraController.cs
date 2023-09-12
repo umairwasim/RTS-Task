@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private const float MIN_Y = -3f;
-    private const int MAX_Y = 17;
-
-    [SerializeField] private float moveSpeed = 50f;
-    [SerializeField] private float zoomSpeed = 1f;
-    [SerializeField] private KeyCode UP = KeyCode.W;
+    [Header("Camera Movement Keys"), SerializeField] private KeyCode UP = KeyCode.W;
     [SerializeField] private KeyCode DOWN = KeyCode.S;
     [SerializeField] private KeyCode LEFT = KeyCode.A;
     [SerializeField] private KeyCode RIGHT = KeyCode.D;
+
+    [Header("Speed"), SerializeField] private float moveSpeed = 50f;
+    [SerializeField] private float zoomSpeed = 1f;
+
+    [Header("Zoom Y Values"), SerializeField] private float MIN_Y = -3f;
+    [SerializeField] private int MAX_Y = 17;
+
     private float cameraY;
 
     private void Awake() => cameraY = transform.position.y;
