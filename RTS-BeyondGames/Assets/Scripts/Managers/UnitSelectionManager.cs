@@ -59,9 +59,9 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void Update()
     {
-        //Left mouse button clicked
+        //On Left mouse button clicked
         Select();
-        //right mouse button clicked
+        //On right mouse button clicked
         Move();
     }
 
@@ -79,11 +79,10 @@ public class UnitSelectionManager : MonoBehaviour
                 {
                     //Prevemt the case when clicking on Unit r teleporter to spawn Teleport object
                     if (raycastHit.transform.TryGetComponent(out Teleporter teleporter) ||
-                        raycastHit.transform.TryGetComponent(out Unit uniy))
+                        raycastHit.transform.TryGetComponent(out Unit unit))
                         return;
 
                     TeleportManager.Instance.GenerateTeleporter(raycastHit.point);
-
                     SoundManager.Instance.PlaySound(SoundManager.Instance.buttonClickSound);
 
                 }
@@ -93,9 +92,7 @@ public class UnitSelectionManager : MonoBehaviour
                     {
                         //select the unit on left click
                         SelectUnit(unit);
-
                         SoundManager.Instance.PlaySound(SoundManager.Instance.buttonClickSound);
-
                     }
                 }
             }
@@ -110,7 +107,7 @@ public class UnitSelectionManager : MonoBehaviour
             foreach (var unit in selectedUnits)
             {
                 unit.SetDestinationPoint(MouseInput.GetMouseWorldPosition());
-                // unit.AnimateMovement();
+                unit.AnimateMovement();
             }
 
         }
