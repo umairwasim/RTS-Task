@@ -2,19 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.AI;
 
 public class TeleportManager : MonoBehaviour
 {
     public static TeleportManager Instance;
-
-    private List<Teleporter> teleporterList = new();
-
-    //for testing only
-    public GameObject player;
     public GameObject teleporterPrefab;
 
-    private bool isEntered = false;
+    private NavMeshAgent agent;
+    private List<Teleporter> teleportersList = new();
+
+    //for testing only
+    //public Unit player;
+
+    public bool CanSpawnTeleporter() => teleportersList.Count <= 2;
 
     private void Awake()
     {
@@ -23,38 +24,58 @@ public class TeleportManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(InstantiateCube());
+        //just for testing 
+        //StartCoroutine(InstantiateCube());
     }
 
-    IEnumerator InstantiateCube()
-    {
-        Instantiate(teleporterPrefab, player.transform.position + new Vector3(5, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(3f);
-        Instantiate(teleporterPrefab, player.transform.position + new Vector3(0, 0, 5), Quaternion.identity);
-    }
-
-    public void AddCube(Teleporter teleporter)
-    {
-        teleporterList.Add(teleporter);
-        Debug.Log("Teleporter added" + teleporter);
-    }
-
-    //private Teleporter OtherTeleporter(Teleporter teleporter)
+    //IEnumerator InstantiateCube()
     //{
-    //    return teleporterList.Where(t => t.IsPlayerEntered() == teleporter.IsPlayerEntered());
+    //    Instantiate(teleporterPrefab, player.transform.position + new Vector3(5, 0, 0), Quaternion.identity);
+    //    yield return new WaitForSeconds(3f);
+    //    Instantiate(teleporterPrefab, player.transform.position + new Vector3(0, 0, 5), Quaternion.identity);
     //}
 
-    public void Teleport()
+    public void AddTeleporter(Teleporter teleporter)
     {
-        foreach (var teleporter in teleporterList)
+        teleportersList.Add(teleporter);
+        Debug.Log("Teleporter added" + teleporter.name);
+    }
+
+    //set the selected agent
+    public void SetAgent(NavMeshAgent newAgent)
+    {
+        agent = newAgent;
+    }
+
+    //New functions
+
+    public void CreateTeleporter(Vector3 position)
+    {
+        // Instantiate the teleporter.
+        GameObject teleporterGameObject = Instantiate(teleporterPrefab, position, Quaternion.identity);
+
+        if (teleporterGameObject.TryGetComponent(out Teleporter newTeleporter))
         {
-            //check if the player entered in the teleporter
-            if (teleporter.IsPlayerEntered())
-            {
-                Transform teleportToTransform = teleporterList[1].teleporterPointTransform;
-                player.transform.position = teleportToTransform.position;
-                player.GetComponent<Unit>().SetDestinationPoint(teleportToTransform.position);
-            }
+            teleportersList.Add(newTeleporter);
+        }
+
+        // Check if we have two teleporters, and if so, set their references.
+        if (teleportersList.Count == 2)
+        {
+            SetTeleporterReferences();
         }
     }
+
+    private void SetTeleporterReferences()
+    {
+        Teleporter teleporter1 = teleportersList[0].GetComponent<Teleporter>();
+        Teleporter teleporter2 = teleportersList[1].GetComponent<Teleporter>();
+
+        if (teleporter1 != null && teleporter2 != null)
+        {
+            teleporter1.SetOtherTeleporter(teleportersList[1]);
+            teleporter2.SetOtherTeleporter(teleportersList[0]);
+        }
+    }
+
 }
