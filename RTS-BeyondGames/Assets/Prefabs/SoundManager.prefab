@@ -176,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 4717085210972655599}
   soundsSource: {fileID: 5537922620268731226}
-  buttonClickSound: {fileID: 0}
-  teleporterSound: {fileID: 0}
+  buttonClickSound: {fileID: 8300000, guid: cc6699269b4c1d44ea1e860518b9bb73, type: 3}
+  teleporterSound: {fileID: 8300000, guid: eec3bf121b316d64ca1c8aac7573a2f4, type: 3}
 --- !u!1 &5571969968632092908
 GameObject:
   m_ObjectHideFlags: 0
