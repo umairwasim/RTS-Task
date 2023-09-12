@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class TeleportManager : MonoBehaviour
 {
@@ -10,35 +11,31 @@ public class TeleportManager : MonoBehaviour
     [SerializeField] private GameObject teleporterPrefab;
 
     private NavMeshAgent agent;
+
     private bool isCoolingDown;
     private float cooldownDuration;
+
     private const float COOLDOWN_TIMER = 10f;
+    private const float SCALE_MULTIPLIER = 0.25f;
+
     private readonly List<Teleporter> teleportersList = new();
 
     public bool GetCanSpawnTeleporter() => teleportersList.Count < 2;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    private void Awake() => Instance = this;
 
-    public void AddTeleporter(Teleporter teleporter)
-    {
-        teleportersList.Add(teleporter);
-    }
+    public void AddTeleporter(Teleporter teleporter) => teleportersList.Add(teleporter);
 
     //set the selected agent
-    public void SetAgent(NavMeshAgent newAgent)
-    {
-        agent = newAgent;
-    }
+    public void SetAgent(NavMeshAgent newAgent) => agent = newAgent;
 
     public void CreateTeleporter(Vector3 position)
     {
         // Instantiate the teleporter.
-        GameObject teleporterGameObject = Instantiate(teleporterPrefab, position, Quaternion.identity, transform);
+        Transform teleporterTransform = Instantiate(teleporterPrefab.transform, position, Quaternion.identity, transform);
+        teleporterTransform.DOPunchScale(Vector3.one * SCALE_MULTIPLIER, 0.25f);
 
-        if (teleporterGameObject.TryGetComponent(out Teleporter newTeleporter))
+        if (teleporterTransform.TryGetComponent(out Teleporter newTeleporter))
             teleportersList.Add(newTeleporter);
 
         // Check if we have two teleporters, and if so, set their references.
@@ -71,25 +68,32 @@ public class TeleportManager : MonoBehaviour
         while (cooldownDuration > 0)
         {
             // Update UI Manager to display cooldown timer.
-            UIManager.Instance.cooldownText.text = "Cooldown: " + cooldownDuration.ToString("0");
+            UIManager.Instance.UpdateCooldownText(cooldownDuration);
             yield return new WaitForSeconds(1f);
             cooldownDuration--;
         }
 
         // Cooldown is over.
-        UIManager.Instance.cooldownText.text = "Cooldown: 0";
+        UIManager.Instance.UpdateCooldownText(0);
         isCoolingDown = false;
+
+        //Fade out Cooldown text
+        UIManager.Instance.HideCoolDownText();
 
         // Clear the list of teleporters for next spawning.
         ClearTeleportersList();
-        UIManager.Instance.HideCoolDownText();
     }
 
 
     private void ClearTeleportersList()
     {
-        foreach (var teleporter in transform.GetComponentsInChildren<Teleporter>())
-            Destroy(teleporter.gameObject);
+        foreach (var teleporter in teleportersList)
+        {
+            teleporter.transform
+                .DOScale(Vector3.zero, SCALE_MULTIPLIER * 2)
+                .SetEase(Ease.InBack)
+                .OnComplete(() => Destroy(teleporter.gameObject));
+        }
 
         teleportersList.Clear();
     }
