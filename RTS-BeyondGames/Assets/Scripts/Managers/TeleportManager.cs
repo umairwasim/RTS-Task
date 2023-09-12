@@ -87,7 +87,7 @@ public class TeleportManager : MonoBehaviour
         ClearTeleportersList();
     }
 
-
+    //After cool down, tweem the teleporters to scale back. destroy and clear from the list
     private void ClearTeleportersList()
     {
         foreach (var teleporter in teleportersList)
