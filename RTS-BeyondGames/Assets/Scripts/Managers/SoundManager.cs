@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Clips")]
     public AudioClip buttonClickSound;
     public AudioClip teleporterSound;
+    public AudioClip teleportDestroySound;
 
     private void Awake()
     {
