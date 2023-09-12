@@ -95,7 +95,10 @@ public class TeleportManager : MonoBehaviour
             teleporter.transform
                 .DOScale(Vector3.zero, SCALE_MULTIPLIER * 2)
                 .SetEase(Ease.InBack)
-                .OnComplete(() => Destroy(teleporter.gameObject));
+                .OnComplete(() => { 
+                    Destroy(teleporter.gameObject);
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.teleportDestroySound);
+                });
         }
 
         teleportersList.Clear();
